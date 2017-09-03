@@ -1,0 +1,26 @@
+# A basic .muttrc for use with Gmail
+#
+source "~/.mutt/gmail.com"
+
+set editor = 'nvim'
+set imap_check_subscribed
+set mail_check = 120
+set timeout = 300
+set imap_keepalive = 300
+set header_cache=~/.mutt/cache/headers
+set message_cachedir=~/.mutt/cache/bodies
+set certificate_file=~/.mutt/certificates
+set move = no
+set include
+set sort = 'threads'
+set sort_aux = 'reverse-last-date-received'
+set auto_tag = yes
+# ignore "Authentication-Results:"
+# ignore "DomainKey-Signature:"
+# ignore "DKIM-Signature:"
+hdr_order Date From To Cc
+alternative_order text/enriched text/plain text/html text *
+auto_view text/html # will open in chrome or links depending on ~/.mailcap
+
+# Make "No authenticators available" error go away when sending emails.
+set smtp_authenticators = 'gssapi:login'
