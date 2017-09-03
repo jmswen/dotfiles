@@ -1,10 +1,8 @@
-" make sure these lines stay at top
+" This block should stay at the top.
 set nocompatible
 filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#rc()
-set ignorecase  " Needed for smartcase
-set smartcase   " smartcase searching
 
 Plugin 'VundleVim/Vundle.vim'
 
@@ -18,12 +16,9 @@ Plugin 'altercation/vim-colors-solarized'
 Plugin 'junegunn/fzf'
 " Some extra bells and whistles so that fzf works nicely with vim.
 Plugin 'junegunn/fzf.vim'
-" ack.vim (hacked to work with ag below) works nicely with fzf.vim
-Plugin 'mileszs/ack.vim'
 " Facebook-specific. Good for syntax highlighting .thrift IDL files.
 Plugin 'solarnz/thrift.vim'
 Plugin 'jsonm.vim', {'pinned': 1}
-
 
 " My color tweaks
 augroup HiglightTODO
@@ -41,6 +36,8 @@ augroup END
 " Once Vundle has loaded the plugins, we can turn on filetype.
 filetype plugin indent on
 syntax enable
+set ignorecase  " Needed for smartcase
+set smartcase   " smartcase searching
 set background=dark
 " solarized options 
 let g:solarized_visibility = "high"
@@ -49,31 +46,27 @@ colorscheme solarized
 " the following line seems to fix weird issues with vim inside of iTerm2
 set t_Co=256
 
-set autochdir "automatically changes working directory to same as current file
-" autocmd vimenter * NERDTree
-set noerrorbells visualbell t_vb= " disable audio bell, but keep visual bell
+" Automatically changes working directory to same as current file
+set autochdir
+" Disable audio bell, but keep visual bell
+set noerrorbells visualbell t_vb= 
 set mouse=a
+" Enable switching buffers without saving
+set hidden 
 
-set hidden "enable switching buffers without saving
-
-" use ack instead of grep (better for programmers!)
-set grepprg=ack\ --nogroup\ --column\ $*
-set grepformat=%f:%l:%c:%m
-
-" preference for highlighted search results depends on the day :/
 set nohlsearch
-set incsearch " but incremental search is super useful for moving around
+set incsearch
 
 " Column width
 au BufRead,BufNewFile *.{c,cpp,h,java,md,tex} setlocal textwidth=80
 
-""" Cool tricks in vim
-"At the vim command line:
-"  :imap <c-j>d <c-r>=system('/Users/jon/myscript.py')
-"  If myscript.py writes, say, a UUID to stdout, the new (insert-mode) command
-"  <c-j>d will insert a uuid right into your buffer.
+""" Some vim tricks
+" At the vim command line:
+"   :imap <c-j>d <c-r>=system('/Users/jon/myscript.py')
+"   If myscript.py writes, say, a UUID to stdout, the new (insert-mode) command
+"   <c-j>d will insert a uuid right into your buffer.
 
-" Useful for any program using CTAGS
+" Useful for any program using ctags.
 " If tags file is not in current dir, look in parent, etc.
 set tags=tags;
 
@@ -83,8 +76,8 @@ set tags=tags;
 "inoremap <some-prefix> <esc>viwUea
 "nnoremap <some-prefix> viwUe
 
-" Consider setting leader and local leader
 let mapleader = ","
+" Consider also setting local leader
 " set maplocalleader = "\\"
 
 " Edit my Vimrc 
@@ -94,34 +87,24 @@ nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 " ^~~~~~~^~~~~
 nnoremap <leader>sv :source $MYVIMRC<cr>
 
-" Useful trick in Normal mode: ZZ is equivalent to :wq<cr> for closing
-" a window
-
-" Exercise: Surround word in double quotes
+" Surround word in double quotes
 nnoremap <leader>" viw<esc>a"<esc>hbi"<esc>lel
 vnoremap <leader>" <esc>`>a"<esc>`<i"<esc>gvlolo
 
 " Save wear and tear on the left pinky
-" This is going to change my life!
 inoremap jk <esc>
-" Force myself to learn the jk mapping 
-" inoremap <esc> <nop>
-"
-set backspace=2
 
+set backspace=2
 set softtabstop=2
 set shiftwidth=2 "tab size
 set expandtab "expand tabs to spaces
 
-" ~/bin/clang-format.py
-" Note: Used to have this set to <C-I>, but it appears that vim always
-" interprets <C-I> and <Tab> as the same command.
 map <C-K> :pyf /Users/jon/bin/clang-format.py<CR>
 imap <C-K> <ESC>:pyf /Users/jon/bin/clang-format.py<CR>i
 
-"""""""""""""""""""""
-" fzf configuration "
-"""""""""""""""""""""
+""""""""""""""""""""""""""""
+" fzf and ag configuration "
+""""""""""""""""""""""""""""
 function! s:fzf_statusline()
   " Override statusline as you like
   highlight fzf1 ctermfg=161 ctermbg=251
@@ -153,7 +136,6 @@ autocmd VimEnter * command! -bang -nargs=* Ag
   \                 <bang>0 ? fzf#vim#with_preview('up:60%')
   \                         : fzf#vim#with_preview('right:50%:hidden', '?'),
   \                 <bang>0)
-
 nnoremap <Leader>a :Ag<CR>
 
 " fzf.vim plugin commands for searching for files and for text in 
@@ -162,8 +144,8 @@ nnoremap <Leader>a :Ag<CR>
 command! -bang -nargs=? -complete=dir Files
   \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
 
-" Many more useful fzf.vim commands are described at
+" Many more useful fzf.vim commands, such as Files and Buffers below,
+" are described at
 " https://github.com/junegunn/fzf.vim/blob/master/README.md#commands
-
 nnoremap <Leader>t :Files<CR>
 nnoremap <Leader>b :Buffers<CR>
