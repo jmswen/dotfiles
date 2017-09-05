@@ -13,6 +13,9 @@ Plug 'altercation/vim-colors-solarized'
 Plug 'junegunn/fzf'
 " Some extra bells and whistles so that fzf works nicely with vim.
 Plug 'junegunn/fzf.vim'
+" Distraction-free writing
+Plug 'junegunn/goyo.vim',      { 'for': 'markdown' }
+Plug 'junegunn/limelight.vim', { 'for': 'markdown' }
 " Facebook-specific. Good for syntax highlighting .thrift IDL files.
 Plug 'solarnz/thrift.vim'
 Plug '~/jsonm.vim'
@@ -160,3 +163,19 @@ set background=dark
 colorscheme solarized
 " the following line seems to fix weird issues with vim inside of iTerm2
 set t_Co=256
+
+
+" =====================================
+" Limelight settings + Goyo integration
+" =====================================
+" Color name (:help cterm-colors)
+let g:limelight_conceal_ctermfg = 'blue'
+let g:limelight_default_coefficient = 0.9
+
+augroup GoyoAndLimelight
+  " Remove all existing GoyoAndLimelight autocommands
+  autocmd!
+
+  autocmd User GoyoEnter Limelight
+  autocmd User GoyoLeave Limelight!
+augroup END
