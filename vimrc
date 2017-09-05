@@ -10,7 +10,7 @@ Plug 'tpope/vim-surround'
 Plug 'altercation/vim-colors-solarized'
 " Enables basic wrapper FZF vim command. Requires fzf binary to be installed on
 " the system.
-Plug 'junegunn/fzf'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 " Some extra bells and whistles so that fzf works nicely with vim.
 Plug 'junegunn/fzf.vim'
 " Facebook-specific. Good for syntax highlighting .thrift IDL files.
@@ -41,6 +41,9 @@ set backspace=indent,eol,start
 set softtabstop=2
 set shiftwidth=2
 set expandtab
+" Enhanced command-line completion mode (for file names, command names, etc.)
+set wildmenu
+set wildmode=list:longest,full
 " Useful for any program using ctags.
 " If tags file is not in current dir, look in parent, etc.
 set tags=tags;
@@ -54,7 +57,9 @@ set tags=tags;
 augroup TextWidth
   " Remove existing TextWidth autocommand
   autocmd!
-  autocmd BufRead,BufNewFile *.{c,cpp,h,java,md} setlocal textwidth=80
+  " Set textwidth to 80 characters. colorcolumn setting is relative to
+  " textwidth.
+  autocmd BufRead,BufNewFile *.{c,cpp,h,java,md} setlocal textwidth=80 colorcolumn=+1
 augroup END
 
 let mapleader = ","  " Consider also setting local leader
@@ -71,8 +76,8 @@ vnoremap <leader>" <esc>`>a"<esc>`<i"<esc>gvlolo
 " Save wear and tear on the left pinky
 inoremap jk <esc>
 " clang-format shortcuts
-nnoremap <C-K> :pyf /Users/jon/bin/clang-format.py<CR>
-inoremap <C-K> <ESC>:pyf /Users/jon/bin/clang-format.py<CR>i
+nnoremap <C-k> :pyf /usr/local/share/clang/clang-format.py<CR>
+inoremap <C-v> <ESC>:pyf /usr/local/share/clang/clang-format.py<CR>i
 
 
 " ========================
@@ -84,6 +89,17 @@ function! s:fzf_statusline()
   highlight fzf2 ctermfg=23 ctermbg=251
   highlight fzf3 ctermfg=237 ctermbg=251
   setlocal statusline=%#fzf1#\ >\ %#fzf2#fz%#fzf3#f
+endfunction
+
+" From junegunn/fzf.vim. Patterns passed to ag must be properly escaped.
+function! s:escape_ag_pattern(pattern)
+  return "'".substitute(a:pattern, "'", "'\\\\''", 'g')."'"
+endfunction
+
+function! s:ag_with_directory(dir, ...)
+  return call(
+    \ 'fzf#vim#ag_raw',
+    \  extend([s:escape_ag_pattern('^(?=.)').' '.a:dir], a:000))
 endfunction
 
 let g:fzf_tags_command = 'ctags --extra=+fq -R'
@@ -120,12 +136,20 @@ augroup FzfAutocmds
     \                 <bang>0 ? fzf#vim#with_preview('up:60%')
     \                         : fzf#vim#with_preview('right:50%:hidden', '?'),
     \                 <bang>0)
+
+  " Ad: ag through given directory. Useful when grepping through large
+  " codebases and you don't want to search through the entire repo.
+  autocmd VimEnter * command! -bang -nargs=* -complete=dir Ad
+    \ call s:ag_with_directory(<q-args>,
+    \                          <bang>0 ? fzf#vim#with_preview('up:60%')
+    \                                  : fzf#vim#with_preview('right:50%:hidden', '?'),
+    \                          <bang>0)
 augroup END
 
 " Many more useful fzf.vim commands such as :Ag, :Files, and :Buffers below are
 " described at
 " https://github.com/junegunn/fzf.vim/blob/master/README.md#commands
-"
+
 " ag to fuzzy grep through code
 nnoremap <Leader>a :Ag<CR>
 " Fuzzy match for files
@@ -133,6 +157,8 @@ nnoremap <Leader>t :Files<CR>
 " Fuzzy search open buffer names
 nnoremap <Leader>b :Buffers<CR>
 
+" Exit terminal mode. Mnemonic is that 'n' stands for normal.
+tnoremap <Leader>n <C-\><C-n>
 
 " ======
 " Colors
@@ -153,10 +179,17 @@ augroup VimrcColors
   autocmd ColorScheme * highlight Todo            guifg=Purple
 augroup END
 
+" Highlight tab characters with 'Error' group coloring. Use :retab to fix.
+syntax match tab display "\t"
+highlight link tab Error
+
+" the following line seems to fix weird issues with vim inside of iTerm2
+if &term == "screen-256color"
+  set t_Co=256
+endif
+
 " Solarized settings
 let g:solarized_visibility = "high"
 let g:solarized_contrast = "high"
 set background=dark
 colorscheme solarized
-" the following line seems to fix weird issues with vim inside of iTerm2
-set t_Co=256
