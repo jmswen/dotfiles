@@ -79,8 +79,8 @@ vnoremap <leader>" <esc>`>a"<esc>`<i"<esc>gvlolo
 " Save wear and tear on the left pinky
 inoremap jk <esc>
 " clang-format shortcuts
-nnoremap <C-k> :pyf /usr/local/share/clang/clang-format.py<CR>
-inoremap <C-v> <ESC>:pyf /usr/local/share/clang/clang-format.py<CR>i
+noremap <C-k> :pyf /usr/local/share/clang/clang-format.py<CR>
+inoremap <C-k> <c-o>:pyf /usr/local/share/clang/clang-format.py<CR>
 
 
 " ========================
