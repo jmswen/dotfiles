@@ -65,6 +65,19 @@ augroup TextWidth
   autocmd BufRead,BufNewFile *.{c,cpp,h,java,md} setlocal textwidth=80 colorcolumn=+1
 augroup END
 
+function! s:strip_trailing_whitespace()
+  " Strip trailing whitespace but retain 'expected' cursor
+  let l = line(".")
+  let c = col(".")
+  %s/\s\+$//e
+  call cursor(l, c)
+endfunction
+
+augroup StripTrailingWhitespace
+  autocmd!
+  autocmd BufWritePre * call s:strip_trailing_whitespace()
+augroup END
+
 let mapleader = ","  " Consider also setting local leader
 
 " Edit my Vimrc 

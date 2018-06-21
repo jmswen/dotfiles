@@ -3,7 +3,7 @@ if [[ -z ${ZSH+x} ]]; then
   # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
   # Path to your oh-my-zsh installation.
-  export ZSH=/Users/$USER/.oh-my-zsh
+  export ZSH="$HOME/.oh-my-zsh"
 fi
 
 # Set name of the theme to load. Optionally, if you set this to "random"
@@ -100,17 +100,8 @@ bindkey '^w' backward-kill-word
 # ctrl-r starts searching history backward
 bindkey '^r' history-incremental-search-backward
 
-export EDITOR=nvim
-
-
 # add color to grep output
 alias grep='grep --color=auto'
-
-htags() {
-    # use --etags instead of --ctags for emacs
-    hasktags --ignore-close-implementation --ctags .; sort tags
-}
-export PATH="/usr/local/opt/openssl@1.1/bin:$PATH"
 
 # fzf setup
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -119,3 +110,6 @@ export PATH="/usr/local/opt/openssl@1.1/bin:$PATH"
 unsetopt beep       # no bell on error
 unsetopt hist_beep  # no bell on error in history
 unsetopt list_beep  # no bell on ambiguous completion
+
+export EDITOR=nvim
+export PATH="/usr/local/sbin:$PATH"
