@@ -8,10 +8,10 @@ all:	nvim tmux zsh
 
 nvim:
 	test -f ~/.config/nvim/init.vim || \
-	  ln -s ~/.config/nvim/init.vim $(DOTFILES_DIR)/vimrc
+	  ln -s $(DOTFILES_DIR)/vimrc ~/.config/nvim/init.vim
 	test -f ~/.config/nvim/autoload/mycstyle.vim || ( \
 	  mkdir -p ~/.config/nvim/autoload/ && \
-	  ln -s ~/.config/nvim/autoload/mycstyle.vim $(DOTFILES_DIR)/mycstyle.vim \
+	  ln -s $(DOTFILES_DIR)/mycstyle.vim ~/.config/nvim/autoload/mycstyle.vim \
 	)
 
 tmux:
