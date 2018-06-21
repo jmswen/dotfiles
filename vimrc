@@ -8,6 +8,7 @@ Plug 'vim-scripts/a.vim'
 " Nice package for wrapping selected text in quotes, parentheses, etc.
 Plug 'tpope/vim-surround'
 Plug 'altercation/vim-colors-solarized'
+Plug 'iCyMind/NeoSolarized'
 " Enables basic wrapper FZF vim command. Requires fzf binary to be installed on
 " the system.
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -205,10 +206,11 @@ if &term == "screen-256color"
 endif
 
 " Solarized settings
-let g:solarized_visibility = "high"
-let g:solarized_contrast = "high"
-set background=dark
-colorscheme solarized
+" let g:solarized_visibility = "high"
+" let g:solarized_contrast = "high"
+" set background=dark
+" colorscheme solarized
+colorscheme NeoSolarized
 
 
 " =====================================
