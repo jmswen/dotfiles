@@ -8,6 +8,7 @@ Plug 'vim-scripts/a.vim'
 " Nice package for wrapping selected text in quotes, parentheses, etc.
 Plug 'tpope/vim-surround'
 Plug 'altercation/vim-colors-solarized'
+Plug 'iCyMind/NeoSolarized'
 " Enables basic wrapper FZF vim command. Requires fzf binary to be installed on
 " the system.
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -63,6 +64,19 @@ augroup TextWidth
   " Set textwidth to 80 characters. colorcolumn setting is relative to
   " textwidth.
   autocmd BufRead,BufNewFile *.{c,cpp,h,java,md} setlocal textwidth=80 colorcolumn=+1
+augroup END
+
+function! s:strip_trailing_whitespace()
+  " Strip trailing whitespace but retain 'expected' cursor
+  let l = line(".")
+  let c = col(".")
+  %s/\s\+$//e
+  call cursor(l, c)
+endfunction
+
+augroup StripTrailingWhitespace
+  autocmd!
+  autocmd BufWritePre * call s:strip_trailing_whitespace()
 augroup END
 
 let mapleader = ","  " Consider also setting local leader
@@ -195,10 +209,11 @@ if &term == "screen-256color"
 endif
 
 " Solarized settings
-let g:solarized_visibility = "high"
-let g:solarized_contrast = "high"
-set background=dark
-colorscheme solarized
+" let g:solarized_visibility = "high"
+" let g:solarized_contrast = "high"
+" set background=dark
+" colorscheme solarized
+colorscheme NeoSolarized
 
 
 " =====================================
