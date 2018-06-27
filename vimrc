@@ -160,6 +160,9 @@ nnoremap <Leader>t :Files<CR>
 " Fuzzy search open buffer names
 nnoremap <Leader>b :Buffers<CR>
 
+" Jump to enclosing open brace '{'. Useful for jumping to start of function.
+nnoremap <Leader>f [{
+
 " Exit terminal mode. Mnemonic is that 'n' stands for normal.
 tnoremap <Leader>n <C-\><C-n>
 
