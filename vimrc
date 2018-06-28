@@ -32,10 +32,10 @@ set smartcase   " smartcase searching
 " Automatically changes working directory to same as current file
 set autochdir
 " Disable audio bell, but keep visual bell
-set noerrorbells visualbell t_vb= 
+set noerrorbells visualbell t_vb=
 set mouse=a
 " Enable switching buffers without saving
-set hidden 
+set hidden
 " Search highlight settings
 set nohlsearch
 set incsearch
@@ -81,7 +81,7 @@ augroup END
 
 let mapleader = ","  " Consider also setting local leader
 
-" Edit my Vimrc 
+" Edit my Vimrc
 " ^~~~~~~~^~~~~
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 " Source Vimrc
@@ -211,10 +211,9 @@ endif
 " Solarized settings
 " let g:solarized_visibility = "high"
 " let g:solarized_contrast = "high"
-" set background=dark
 " colorscheme solarized
 colorscheme NeoSolarized
-
+set background=dark
 
 " =====================================
 " Limelight settings + Goyo integration
