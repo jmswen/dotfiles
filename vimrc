@@ -211,10 +211,8 @@ endif
 " Solarized settings
 " let g:solarized_visibility = "high"
 " let g:solarized_contrast = "high"
-set background=dark
-" colorscheme solarized
 colorscheme NeoSolarized
-
+set background=dark
 
 " =====================================
 " Limelight settings + Goyo integration
