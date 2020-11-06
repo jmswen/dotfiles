@@ -111,5 +111,4 @@ unsetopt beep       # no bell on error
 unsetopt hist_beep  # no bell on error in history
 unsetopt list_beep  # no bell on ambiguous completion
 
-export EDITOR=nvim
 export PATH="/usr/local/sbin:$PATH"
