@@ -1,0 +1,32 @@
+{
+    "workbench.colorTheme": "Default Dark+",
+    "editor.suggestSelection": "first",
+    "editor.suggest.snippetsPreventQuickSuggestions": false,
+    "fb.ms-remote-connections.hosts": [
+        {
+            "hostname": "devvm1072.nao0.facebook.com",
+            "folders": [
+                "/data/users/jmswen/configerator/",
+                "/data/users/jmswen/fbsource/fbcode/",
+                "/data/users/jmswen/fbsource/"
+            ]
+        },
+        {
+            "hostname": "devvm1947.prn0.facebook.com",
+            "folders": []
+        }
+    ],
+    "intern-tools.showReminderBeforeMeetings": true,
+    "editor.fontSize": 13,
+    "fb.ms-remote-connections.odtypes": [
+        {
+            "type": "ondemand_bento",
+            "flavor": "default",
+            "folders": []
+        }
+    ],
+    "[cpp]": {
+        "editor.defaultFormatter": "nuclide.cpp"
+    },
+    "editor.fontFamily": "Fira Code"
+}

@@ -111,4 +111,4 @@ unsetopt beep       # no bell on error
 unsetopt hist_beep  # no bell on error in history
 unsetopt list_beep  # no bell on ambiguous completion
 
-export PATH="/usr/local/sbin:$PATH"
+export PATH="/usr/local/sbin:/Users/jmswen/.cargo/bin:$PATH"
