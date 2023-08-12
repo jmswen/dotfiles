@@ -208,23 +208,4 @@ if &term == "screen-256color"
   set t_Co=256
 endif
 
-" Solarized settings
-" let g:solarized_visibility = "high"
-" let g:solarized_contrast = "high"
-" colorscheme NeoSolarized
-" set background=dark
-
-" =====================================
-" Limelight settings + Goyo integration
-" =====================================
-" Color name (:help cterm-colors)
-let g:limelight_conceal_ctermfg = 'blue'
-let g:limelight_default_coefficient = 0.9
-
-augroup GoyoAndLimelight
-  " Remove all existing GoyoAndLimelight autocommands
-  autocmd!
-
-  autocmd User GoyoEnter Limelight
-  autocmd User GoyoLeave Limelight!
-augroup END
+set background=dark

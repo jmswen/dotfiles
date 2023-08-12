@@ -105,10 +105,11 @@ alias grep='grep --color=auto'
 
 # fzf setup
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export FZF_DEFAULT_OPTS="--height 40%"
 
 # Miscellaneous
 unsetopt beep       # no bell on error
 unsetopt hist_beep  # no bell on error in history
 unsetopt list_beep  # no bell on ambiguous completion
 
-export PATH="/usr/local/sbin:/Users/jmswen/.cargo/bin:$PATH"
+export PATH="/opt/homebrew/bin:/usr/local/sbin:/Users/jmswen/.cargo/bin:$PATH"
